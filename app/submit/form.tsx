@@ -47,7 +47,7 @@ export function Form() {
     formData.append("upload_preset", "sendthepict");
 
     const response = await fetch(
-      `https://api.cloudinary.com/v1_1/dvgaex1ox/image/upload`,
+      `${process.env.CLOUDINARY_URL}`,
       {
         method: "POST",
         body: formData,

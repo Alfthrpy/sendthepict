@@ -2,10 +2,15 @@
 import React, { useState, useEffect } from "react";
 import "./browse.css"; // Pastikan untuk membuat file CSS ini
 
+interface Result {
+  recipient: string;
+  message: string;
+}
+
 export function SearchBar() {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("init");
-  const [results, setResults] = useState([]);
+  const [results, setResults] =  useState<Result[]>([]);
   const [inputValue, setInputValue] = useState("");
 
   // Menentukan waktu debounce (dalam milidetik)
@@ -29,7 +34,7 @@ export function SearchBar() {
       if (inputValue) {
         setQuery(inputValue);
         retrieveData(inputValue);
-        console.log("Searching for:", inputValue);
+        console.log("Searching for:", query);
       }
     }, debounceTimeout);
 
