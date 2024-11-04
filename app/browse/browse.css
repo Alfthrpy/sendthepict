@@ -1,0 +1,247 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+nav {
+    background-color: white;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+}
+nav ul {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+nav li {
+    height: 50px;
+}
+nav a {
+    height: 100%;
+    padding: 0 30px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+nav a:hover {
+    background-color: #f0f0f0;
+}
+nav li:first-child {
+    margin-right: auto;
+}
+#judul{
+    font-family: 'Reenie Beanie', sans-serif;
+    font-size: 30px;
+}
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.sidebar li {
+    width: 100%;
+}
+.sidebar a {
+    width: 100%;
+}
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25vh; /* Agar berada di tengah vertikal */
+    margin: 0 auto; /* Agar berada di tengah horizontal */
+}
+
+
+
+.search-input {
+    width: 20%;
+    padding: 12px 100px 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    display: flex;
+}
+
+
+.search-button {
+    background-color: #000;
+    color: white;
+    border: none;
+    padding: 15px 10px;
+    border-radius: 8px 8px 8px 8px; /* Membuat sisi kanan bundar */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 10px;
+}
+
+
+.search-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.results-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dua kolom */
+    gap: 5px;
+    max-width: 800px; /* Sesuaikan lebar container */
+    margin: 0 auto;
+}
+
+.result-card {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    width: 300px;
+    height: 200px;
+}
+
+.recipient {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+@font-face {
+    font-family: 'Reenie Beanie';
+    src: url('/font/ReenieBeanie.ttf') format('truetype');
+}
+.message {
+    margin-bottom: 15px;
+    font-size: 25px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    font-family: 'Reenie Beanie', sans-serif;
+}
+
+.song-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.album-art {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.song-title {
+    color: #0066cc;
+    font-size: 14px;
+}
+
+.load-more-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#load-more {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    color: black;
+    transition: background-color 0.3s;
+    display: none;
+}
+
+#load-more:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 1000px) {
+    .cards-section {
+        padding: 30px 15px;
+    }
+    
+    .card {
+        width: calc(50% - 15px);
+        min-width: 250px;
+    }
+    .search-container {
+        height: auto; /* Mengubah tinggi kontainer agar lebih responsif */
+        padding: 15px; /* Mengurangi padding untuk ruang lebih kecil */
+        flex-direction: column; /* Menyusun elemen secara vertikal di perangkat kecil */
+    }
+
+
+    .search-input {
+        width: 80%; /* Input mengambil lebar penuh */
+        margin-bottom: 10px; /* Ruang di bawah input */
+    }
+
+    .search-button {
+        width: 80%; /* Tombol mengambil lebar penuh */
+    }
+}
+
+@media (max-width: 600px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .button {
+        width: 100%;
+        justify-content: center;
+    }
+    .card {
+        width: 100%;
+    }
+    .search-container {
+        padding: 10px; /* Mengurangi padding pada perangkat lebih kecil */
+    }
+
+    .search-input {
+        font-size: 1rem; /* Menyesuaikan ukuran font untuk input */
+    }
+
+    .search-button {
+        font-size: 1rem; /* Menyesuaikan ukuran font untuk tombol */
+    }
+}
+
+@media(max-width: 800px){
+    .hideOnMobile {
+        display: none;
+    }
+    .menu-button {
+        display: block;
+    }
+}
+@media(max-width: 400px){
+    .sidebar{
+        width: 100%;
+    }
+}
