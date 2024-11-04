@@ -42,11 +42,6 @@ nav li:first-child {
     font-family: 'Reenie Beanie', sans-serif;
     font-size: 30px;
 }
-
-.preview {
-    margin-bottom: 20px;
-}
-
 .sidebar {
     position: fixed;
     top: 0;
@@ -68,78 +63,53 @@ nav li:first-child {
 .sidebar a {
     width: 100%;
 }
-/* Additional CSS for form layout */
-.form-container {
-    width: 100%;
+.support-container {
+    padding: 40px 20px;
+    text-align: center;
     max-width: 800px;
-    margin: 0 auto; /* Center the form container */
-    padding: 100px;
+    margin: 0 auto;
 }
 
-.form-group {
-    margin-bottom: 20px;
+.support-title {
+    font-size: 2.5em;
+    margin-bottom: 30px;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
+.support-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 30px;
     color: #333;
 }
 
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
+.support-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
 
-.form-group textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-/* Submit button container */
-.submit-container {
-    margin-top: 20px;
-    text-align: center; /* Center the submit button */
-}
-
-/* Use existing card-button style from your CSS */
-.submit-btn {
-    display: inline-block;
-    background-color: black;
+.support-button {
+    background-color: #1a1a1a;
     color: white;
     padding: 12px 24px;
-    border-radius: 5px;
-    text-decoration: none;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1em;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    width: fit-content;
 }
 
-.submit-btn:hover {
+.support-button:hover {
     background-color: #333;
 }
 
-/* Success/Error messages */
-.message {
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 4px;
-    text-align: center;
-    display: none;
-}
-
-.success {
-    background-color: #e8f5e9;
-    color: #2e7d32;
-}
-
-.error {
-    color: #c62828;
+.note {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 10px;
 }
 @media (max-width: 1000px) {
     .cards-section {

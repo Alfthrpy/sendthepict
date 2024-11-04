@@ -24,21 +24,21 @@ export default function Navbar() {
                     </a>
                 </li>
                 <li id="judul">
-                    <a href="index.html">SendTheMeme</a>
+                    <a href="/">SendThePict</a>
                 </li>
                 <li>
                     <a href="/submit">Submit</a>
                 </li>
                 <li>
-                    <a href="#">Browser</a>
+                    <a href="/browse">Browser</a>
                 </li>
                 <li>
-                    <a href="#">Support</a>
+                    <a href="/support">Support</a>
                 </li>
             </ul>
             <ul>
                 <li id="judul">
-                    <a href="index.html">SendTheMeme</a>
+                    <a href="/">SendThePict</a>
                 </li>
                 <li className="hideOnMobile">
                     <a href="/submit">Submit</a>
@@ -47,7 +47,7 @@ export default function Navbar() {
                     <a href="/browse">Browser</a>
                 </li>
                 <li className="hideOnMobile">
-                    <a href="#">Support</a>
+                    <a href="/support">Support</a>
                 </li>
                 <li onClick={showSidebar}>
                     <a>

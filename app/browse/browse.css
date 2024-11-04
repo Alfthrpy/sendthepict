@@ -60,25 +60,31 @@ nav li:first-child {
     width: 100%;
 }
 .search-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 25vh; /* Agar berada di tengah vertikal */
-    margin: 0 auto; /* Agar berada di tengah horizontal */
-}
+    margin-bottom: 20px; /* Jarak bawah antara pencarian dan hasil */
+    width: 100%; /* Lebar penuh untuk search-container */
+    display: flex; /* Menggunakan Flexbox untuk input */
+    justify-content: center; /* Pusatkan input di tengah */
+  }
+  
+
+.container-result {
+    max-width: 1200px; /* Batas lebar maksimum untuk kontainer */
+    margin: 0 auto; /* Tengah kontainer di halaman */
+    padding: 20px; /* Jarak dalam kontainer */
+    display: flex; /* Menggunakan Flexbox untuk meratakan konten */
+    flex-direction: column; /* Mengatur konten agar mengalir ke bawah */
+    align-items: center; /* Pusatkan elemen di tengah secara horizontal */
+  }
 
 
-
-.search-input {
-    width: 20%;
-    padding: 12px 100px 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-    display: flex;
-}
-
+  .search-input {
+    width: 100%; /* Lebar penuh */
+    max-width: 400px; /* Lebar maksimum untuk input */
+    padding: 10px; /* Jarak dalam input */
+    border: 1px solid #ccc; /* Border input */
+    border-radius: 5px; /* Sudut membulat pada input */
+    font-size: 16px; /* Ukuran font untuk input */
+  }
 
 .search-button {
     background-color: #000;
@@ -100,28 +106,39 @@ nav li:first-child {
 }
 
 .results-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dua kolom */
-    gap: 5px;
-    max-width: 800px; /* Sesuaikan lebar container */
-    margin: 0 auto;
-}
+    display: grid; /* Menggunakan Grid Layout untuk hasil */
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* 2 kolom minimal, 1 kolom jika kecil */
+    gap: 20px; /* Jarak antar hasil */
+    width: 100%; /* Lebar penuh untuk results-container */
+    
+  }
 
-.result-card {
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    width: 300px;
-    height: 200px;
-}
+  .error {
+    color: red;
+  }
+
+  .result-card {
+    padding: 15px; /* Jarak dalam kartu hasil */
+    border: 1px solid #eaeaea; /* Border pada kartu */
+    border-radius: 8px; /* Sudut membulat pada kartu */
+    background-color: #fff; /* Warna latar belakang kartu */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bayangan lembut pada kartu */
+    transition: transform 0.2s; /* Transisi halus untuk efek hover */
+  }
+
+  .result-card:hover {
+    transform: translateY(-2px); /* Efek mengangkat kartu saat hover */
+  }
 
 .recipient {
     color: #666;
     font-size: 14px;
     margin-bottom: 5px;
 }
+
+.message {
+    color: #555; /* Warna teks untuk pesan */
+  }
 
 @font-face {
     font-family: 'Reenie Beanie';

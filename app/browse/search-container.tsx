@@ -1,58 +1,73 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import './browse.css'; // Pastikan untuk membuat file CSS ini
+"use client";
+import React, { useState, useEffect } from "react";
+import "./browse.css"; // Pastikan untuk membuat file CSS ini
 
 export function SearchBar() {
-  const [query, setQuery] = useState('');
-  const [inputValue, setInputValue] = useState('');
-  
+  const [query, setQuery] = useState("");
+  const [status, setStatus] = useState("init");
+  const [results, setResults] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
   // Menentukan waktu debounce (dalam milidetik)
   const debounceTimeout = 300; // Misalnya, 300ms
+
+  const retrieveData = async (query: string) => {
+    setStatus("loading");
+    const response = await fetch(`/api/details?query=${query}`);
+    if (response.status === 404) {
+      setStatus("not-found");
+      setResults([])
+    } else {
+      const data = await response.json();
+      setStatus("success");
+      setResults(data);
+    }
+  };
 
   useEffect(() => {
     const handler = setTimeout(() => {
       if (inputValue) {
-        setQuery(inputValue); // Perbarui state query setelah debounce
-        console.log('Searching for:', inputValue);
+        setQuery(inputValue);
+        retrieveData(inputValue);
+        console.log("Searching for:", inputValue);
       }
     }, debounceTimeout);
 
-    // Membersihkan timeout jika inputValue berubah sebelum waktu debounce selesai
     return () => {
       clearTimeout(handler);
     };
-  }, [inputValue]); // Jalankan efek ini setiap kali inputValue berubah
+  }, [inputValue]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value); // Simpan nilai input
   };
 
   return (
-    <div className="search-container">
-      <input 
-        type="text" 
-        className="search-input" 
-        value={inputValue} 
-        onChange={handleChange} 
-        placeholder="Search..." 
-      />
-      <button 
-        type="button" 
-        className="search-button" 
-        onClick={() => console.log('Searching for:', query)}
-      >
-        <svg 
-          className="search-icon" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          strokeWidth="2"
-        >
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-        Search
-      </button>
+    <div className="container-result">
+      <div className="search-container">
+        <input
+          type="text"
+          className="search-input"
+          value={inputValue}
+          onChange={handleChange}
+          placeholder="Search..."
+        />
+      </div>
+
+      <div className="browse-container">
+        {status === 'not-found' ? (<div>Not Found</div>) : status === "error" ? (<div className="error">Error</div>) : status === 'loading' ? (<div>Loading...</div>) : (<div></div>)}
+      </div>
+
+      <div className="results-container">
+        {
+          results.map((result, index) => (
+            <div key={index} className="result-card">
+              <div className="recipient">{`To: ${result.recipient}`}</div>
+              <div className="message">{result.message}</div>
+            </div>
+          ))
+        }
+      </div>
     </div>
   );
 }
