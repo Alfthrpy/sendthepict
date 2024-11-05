@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import "./browse.css"; // Pastikan untuk membuat file CSS ini
+import Skeleton from "@/components/skeletons";
 
 interface Result {
   recipient: string;
@@ -10,7 +11,7 @@ interface Result {
 export function SearchBar() {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("init");
-  const [results, setResults] =  useState<Result[]>([]);
+  const [results, setResults] = useState<Result[]>([]);
   const [inputValue, setInputValue] = useState("");
 
   // Menentukan waktu debounce (dalam milidetik)
@@ -18,16 +19,20 @@ export function SearchBar() {
 
   const retrieveData = async (query: string) => {
     setStatus("loading");
+  
+    
     const response = await fetch(`/api/details?query=${query}`);
+    
     if (response.status === 404) {
       setStatus("not-found");
-      setResults([])
+      setResults([]);
     } else {
       const data = await response.json();
       setStatus("success");
       setResults(data);
     }
   };
+  
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -45,6 +50,7 @@ export function SearchBar() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value); // Simpan nilai input
+    console.log(status)
   };
 
   return (
@@ -60,18 +66,26 @@ export function SearchBar() {
       </div>
 
       <div className="browse-container">
-        {status === 'not-found' ? (<div>Not Found</div>) : status === "error" ? (<div className="error">Error</div>) : status === 'loading' ? (<div>Loading...</div>) : (<div></div>)}
+        {status === "not-found" ? (
+          <div>Not Found</div>
+        ) : status === "error" ? (
+          <div className="error">Error</div>
+        ) : (
+          <div></div>
+        )}
       </div>
 
       <div className="results-container">
-        {
-          results.map((result, index) => (
-            <div key={index} className="result-card">
-              <div className="recipient">{`To: ${result.recipient}`}</div>
-              <div className="message">{result.message}</div>
-            </div>
-          ))
-        }
+        {status === "loading"
+          ? // Skeleton loader untuk menampilkan sementara saat data sedang dimuat
+            <Skeleton jml = {8}/>
+          : // Tampilkan hasil data saat sudah berhasil dimuat
+            results.map((result, index) => (
+              <div key={index} className="result-card">
+                <div className="recipient">{`To: ${result.recipient}`}</div>
+                <div className="message">{result.message}</div>
+              </div>
+            ))}
       </div>
     </div>
   );

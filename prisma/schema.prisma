@@ -17,7 +17,9 @@ model message {
   id         String    @id @default(uuid())
   recipient  String     
   message    String 
-  urlImage   String   
+  urlImage   String
+  createdAt  DateTime  @default(now())
+    
 
 }
 

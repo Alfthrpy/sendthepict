@@ -138,6 +138,21 @@ nav li:first-child {
     color: #2e7d32;
 }
 
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #eaeaea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
 .error {
     color: #c62828;
 }

@@ -5,13 +5,22 @@ import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-
+import toast from "react-hot-toast";
 
 const schema = z.object({
-  recipientName: z.string().min(1,{message:"Recipient name is required"}).max(50,{message:"Recipient name must be at least 50 characters"}),
-  message: z.string().min(1,{message:"Please enter the message"}),
-  image: z.instanceof(File), // File bisa kosong
+  recipient: z
+    .string()
+    .min(1, { message: "Recipient name is required" })
+    .max(50, { message: "Recipient name must be at least 50 characters" }),
+  message: z.string().min(1, { message: "Please enter the message" }),
+  image: z.instanceof(File).optional(),
 });
+
+interface FormValues {
+  recipient: string; // Field untuk nama penerima
+  message: string; // Field untuk pesan
+  image?: File | null; // Field untuk gambar, opsional
+}
 
 export function Form() {
   const [imageURL, setImageURL] = useState<string>("");
@@ -21,9 +30,15 @@ export function Form() {
     formState: { errors },
     reset,
     setValue,
-  } = useForm({
+  } = useForm<FormValues>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      recipient: "",
+      message: "",
+      image: undefined,
+    },
   });
+  const [loading, setLoading] = useState(false);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -33,53 +48,60 @@ export function Form() {
     }
 
     const previewURL = URL.createObjectURL(file);
-    setImageURL(previewURL); 
-
-
-    setValue("image", file); 
+    setImageURL(previewURL);
+    setValue("image", file);
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = async (data: any) => {
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", data.image);
+      formData.append("upload_preset", "sendthepict");
 
-    const formData = new FormData();
-    formData.append("file", data.image);
-    formData.append("upload_preset", "sendthepict");
+      // Upload gambar ke Cloudinary
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_CLOUDINARY_URL}`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
-    const response = await fetch(
-      `${process.env.CLOUDINARY_URL}`,
-      {
-        method: "POST",
-        body: formData,
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error uploading image:", errorData);
+        throw new Error("Failed to upload image");
       }
-    );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Error uploading image:", errorData);
-      return;
-    }
+      const uploadData = await response.json();
 
-    const uploadData = await response.json();
+      // Kirim data form ke API untuk disimpan dalam database
+      const submitResponse = await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          recipient: data.recipient,
+          message: data.message,
+          urlImage: uploadData.secure_url,
+        }),
+      });
 
-    // Kirim data form ke API untuk disimpan dalam database
-    const submitResponse = await fetch("/api/upload-image", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        recipientName: data.recipientName,
-        message: data.message,
-        imageURL: uploadData.secure_url, 
-      }),
-    });
+      if (!submitResponse.ok) {
+        throw new Error("Failed to submit form data");
+      }
 
-    if (submitResponse.ok) {
-      alert("Message submitted successfully!");
-      
-      reset(); 
-      setImageURL(""); 
-    } else {
-      alert("There was an error submitting your message.");
+      // Jika berhasil, tampilkan notifikasi sukses
+      toast.success("Message submitted successfully!");
+      reset();
+      setImageURL("");
+    } catch (error) {
+      console.error("Error during submission:", error);
+      toast.error("There was an error submitting your message.");
+    } finally {
+      // Ubah loading menjadi false di akhir proses
+      setLoading(false);
     }
   };
 
@@ -90,17 +112,19 @@ export function Form() {
           <label htmlFor="recipientName">Recipient Name</label>
           <Controller
             control={control}
-            name="recipientName"
+            name="recipient"
             render={({ field }) => (
               <input
                 {...field}
                 type="text"
-                id="recipientName"
+                id="recipient"
                 placeholder="Enter recipient's name"
               />
             )}
           />
-          {errors.recipientName && <p className="error">{errors.recipientName.message as string}</p>}
+          {errors.recipient && (
+            <p className="error">{errors.recipient.message as string}</p>
+          )}
         </div>
 
         <div className="form-group">
@@ -116,7 +140,9 @@ export function Form() {
               ></textarea>
             )}
           />
-          {errors.message && <p className="error">{errors.message.message as string}</p>}
+          {errors.message && (
+            <p className="error">{errors.message.message as string}</p>
+          )}
         </div>
 
         <div className="form-group">
@@ -136,7 +162,7 @@ export function Form() {
         )}
 
         <button type="submit" className="submit-btn">
-          Submit
+          {loading ? <div className="spinner"></div> : "Submit"}
         </button>
       </form>
     </div>
