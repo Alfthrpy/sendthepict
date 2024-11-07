@@ -1,5 +1,5 @@
 import DetailsComponent from "@/components/details";
-import "./details.css";
+
 
 // Ini adalah Server Component, jadi kita bisa langsung menggunakan fetch di sini.
 export default async function Details({ params }: { params: { id: string } }) {

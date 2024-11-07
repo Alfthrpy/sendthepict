@@ -36,8 +36,10 @@ export function SearchBar() {
   };
 
   const handleClick = (id: string) => {
+    router.prefetch(`/details/${id}`); // Prefetch halaman details sebelum navigasi
     router.push(`/details/${id}`);
   };
+  
 
   useEffect(() => {
     const handler = setTimeout(() => {

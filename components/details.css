@@ -67,6 +67,7 @@ body {
 .message {
     font-size: 35px;
     color: #555;
+    text-overflow: inherit;
     margin-top: 10px;
     font-family: 'Reenie Beanie';
 }
@@ -123,7 +124,9 @@ body {
 
     .message {
         font-size: 35px;
+        text-overflow:inherit
     }
+    
 
 
 

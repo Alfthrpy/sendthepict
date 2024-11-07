@@ -42,6 +42,12 @@ nav li:first-child {
     font-family: 'Reenie Beanie', sans-serif;
     font-size: 30px;
 }
+
+
+#judul-2{
+    font-family: 'Reenie Beanie', sans-serif;
+    font-size: 50px;
+}
 .sidebar {
     position: fixed;
     top: 0;
@@ -105,6 +111,75 @@ nav li:first-child {
 .support-button:hover {
     background-color: #333;
 }
+
+.author-info {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.authors-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* Spasi antara kartu author */
+    margin-top: 20px;
+}
+
+.author {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 150px;
+}
+
+.author-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.author-name {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.credits-text {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 30px;
+    text-align: center;
+}
+.credits-text a {
+    color: #1a1a1a;
+    text-decoration: none;
+    font-weight: bold;
+}
+.credits-text a:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+
+.support-button {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.support-button:hover {
+    background-color: #333;
+}
+
+
 
 .note {
     font-size: 0.8em;

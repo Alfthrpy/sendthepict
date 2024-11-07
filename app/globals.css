@@ -3,3 +3,9 @@
 @tailwind utilities;
 
 
+@font-face {
+    font-family: 'Reenie Beanie';
+    src: url('/fonts/ReenieBeanie.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
