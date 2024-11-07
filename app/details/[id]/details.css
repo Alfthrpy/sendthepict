@@ -117,9 +117,15 @@ body {
         font-size: 20px;
     }
 
-    .message, .timestamp, .sender-name {
+    .timestamp, .sender-name {
         font-size: 14px;
     }
+
+    .message {
+        font-size: 35px;
+    }
+
+
 
     .image-caption {
         font-size: 16px;
