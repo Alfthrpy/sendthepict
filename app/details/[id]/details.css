@@ -1,0 +1,127 @@
+/* Mengatur seluruh halaman */
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Container utama untuk halaman */
+.frame-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+/* Konten frame utama */
+.frame-content {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+/* Greeting text */
+.greeting {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Message text */
+.message-info {
+    color: #555;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+/* Container untuk gambar */
+.image-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+/* Gambar meme */
+.meme-image {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Informasi gambar */
+.image-info {
+    text-align: center;
+}
+
+.message {
+    font-size: 35px;
+    color: #555;
+    margin-top: 10px;
+    font-family: 'Reenie Beanie';
+}
+
+.sender-name {
+    font-style: italic;
+    color: #666;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Tanggal pengiriman */
+.timestamp {
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* Tombol untuk mengirim meme */
+.send-meme-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.send-meme-button:hover {
+    background-color: #555;
+}
+
+/* Mengatur font Reenie Beanie */
+@font-face {
+    font-family: 'Reenie Beanie';
+    src: url('/font/ReenieBeanie.ttf') format('truetype');
+}
+
+/* Media queries untuk tampilan responsif */
+@media (max-width: 600px) {
+    .frame-content {
+        padding: 15px;
+    }
+
+    .greeting {
+        font-size: 20px;
+    }
+
+    .message, .timestamp, .sender-name {
+        font-size: 14px;
+    }
+
+    .image-caption {
+        font-size: 16px;
+    }
+}

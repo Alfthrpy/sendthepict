@@ -78,7 +78,7 @@ export function Form() {
       const uploadData = await response.json();
 
       // Kirim data form ke API untuk disimpan dalam database
-      const submitResponse = await fetch("/api/submit", {
+      const submitResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -41,7 +41,7 @@ export async function GET(req: Request) {
   } catch (error) {
     console.error(error); // Log error untuk debugging
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "Internal Server Error", message: error},
       { status: 500 }
     );
   }
